@@ -24,7 +24,7 @@ interface GeniusResponse<T> {
   response?: T;
 }
 
-const API_HOST = 'https://api.genius.com';
+const API_HOST = 'https://files.xianqiao.wang/https://api.genius.com';
 const TOKEN = 'jjffIV35KV6yy1XYK1lDAdOjVmQX7Pf4MApr2-1Kmw4Sh6gJilaFEDsmv3VkBiWA';
 
 export async function fetchSongList(q: string, fetchOptions?: RequestInit): Promise<Song[]> {
@@ -55,11 +55,8 @@ const domParser = new DOMParser();
 export async function fetchGeniusLyrics(songId: number, fetchOptions?: RequestInit) {
   try {
     const html = await request(
-      `https://cors-anywhere.herokuapp.com/https://genius.com/songs/${songId}`,
-      {
-        headers: { 'x-requested-with': location.origin },
-        ...fetchOptions,
-      },
+      `https://files.xianqiao.wang/https://genius.com/songs/${songId}`,
+      fetchOptions,
     );
     const doc = domParser.parseFromString(html, 'text/html');
     const lyricsEle = doc.querySelector('.lyrics') as HTMLElement | null;

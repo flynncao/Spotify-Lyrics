@@ -1,8 +1,8 @@
 {
   "API_HOST": "https://music.xianqiao.wang/neteaseapiv2",
   "LOGGED_MARK_SELECTOR": "header [data-testid=user-widget-link]",
-  "LYRICS_CONTAINER_SELECTOR": ".Root__nav-bar > div",
-  "PAGE_PIP_STYLE": "position: relative; width: 100%; height: auto;",
+  "LYRICS_CONTAINER_SELECTOR": "nav[aria-label=Main] > div:last-of-type",
+  "PAGE_PIP_STYLE": "position: relative; width: 100%; height: auto; border-radius: inherit;",
   "ALBUM_COVER_SELECTOR": "[role=contentinfo] > div:nth-child(1) img",
   "ALBUM_COVER_LARGE_REGEXP_REPLACE": ["00004851(?=\\w{24}$)", "0000b273"],
   "TRACK_INFO_SELECTOR": "[role=contentinfo] > div:nth-child(2)",
@@ -10,7 +10,7 @@
   "TRACK_ARTIST_SELECTOR": "[role=contentinfo] > div:nth-child(2) > div:last-of-type",
   "BTN_WRAPPER_SELECTOR": "[role=contentinfo]",
   "BTN_LIKE_SELECTOR": "[role=contentinfo] > [class*=heart]",
-  "PIP_BTN_SELECTOR": "[role=contentinfo] button[data-testid*=pip], [data-testid=now-playing-bar] .ExtraControls > button[aria-label]",
+  "PIP_BTN_SELECTOR": "[role=contentinfo] button[data-testid*=pip], [data-testid=now-playing-bar] > div > div:last-of-type > div > button[aria-label]",
   "AUDIO_SELECTOR": "NONE",
   "YOUTUBE": {
     "LOGGED_MARK_SELECTOR": "ytmusic-settings-button",
@@ -22,7 +22,7 @@
     "TRACK_NAME_SELECTOR": "ytmusic-player-bar .content-info-wrapper .title",
     "TRACK_ARTIST_SELECTOR": "ytmusic-player-bar .content-info-wrapper .subtitle yt-formatted-string > :first-child",
     "BTN_WRAPPER_SELECTOR": "ytmusic-player-bar ytmusic-like-button-renderer",
-    "BTN_LIKE_SELECTOR": "ytmusic-player-bar ytmusic-like-button-renderer tp-yt-paper-icon-button:last-child",
+    "BTN_LIKE_SELECTOR": "ytmusic-player-bar ytmusic-like-button-renderer tp-yt-paper-icon-button:last-of-type",
     "PIP_BTN_SELECTOR": "NONE",
     "AUDIO_SELECTOR": "video.html5-main-video"
   },
@@ -226,6 +226,7 @@
     "wynton marsalis": "どんまる",
     "cast - frozen": "Yukiと",
     "motte": "모트",
+    "nanahira": "ななひら",
 
     "van morrison": "V",
     "jid": "JIDA",

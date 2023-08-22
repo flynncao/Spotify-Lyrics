@@ -7,9 +7,6 @@ import config from './config.json';
 import { request } from './request';
 import { css, svg, getSVGDataUrl } from './utils';
 
-const REMOTE_URL =
-  'https://raw.githubusercontent.com/mantou132/Spotify-Lyrics/master/src/page/config.json';
-
 // Identify platform
 // Identify the platform, the platform should be the same as in config.json
 export const currentPlatform: Platform = (() => {
@@ -25,7 +22,9 @@ async function getConfig() {
   let result = config;
   if (isProd) {
     try {
-      result = await request(REMOTE_URL);
+      result = await request(
+        `https://raw.githubusercontent.com/mantou132/Spotify-Lyrics/master/src/page/config.json?t=${Date.now()}`,
+      );
     } catch {}
   }
   return currentPlatform === 'SPOTIFY' ? result : Object.assign(result, result[currentPlatform]);
@@ -62,8 +61,8 @@ export const localConfig: LocalConfig = (() => {
 
   if (currentPlatform === 'YOUTUBE') {
     const iconUrl = getSVGDataUrl(svg`
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="18px" height="18px">
-        <path d="M12 20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2s-2 .9-2 2v12c0 1.1.9 2 2 2zm-6 0c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2s-2 .9-2 2v4c0 1.1.9 2 2 2zm10-9v7c0 1.1.9 2 2 2s2-.9 2-2v-7c0-1.1-.9-2-2-2s-2 .9-2 2z"/>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="white" width="48px" height="48px">
+        <path d="M11.85 38.65q-1.1 0-1.8-.7t-.7-1.8v-8.3q0-1.1.725-1.85t1.775-.75q1.1 0 1.85.75t.75 1.85v8.3q0 1.1-.75 1.8t-1.85.7Zm12.15 0q-1.1 0-1.8-.7t-.7-1.8v-24.3q0-1.1.725-1.85T24 9.25q1.1 0 1.85.75t.75 1.85v24.3q0 1.1-.75 1.8t-1.85.7Zm12.15 0q-1.1 0-1.8-.7t-.7-1.8v-14.3q0-1.1.725-1.85t1.775-.75q1.1 0 1.85.75t.75 1.85v14.3q0 1.1-.75 1.8t-1.85.7Z"/>
       </svg>
     `);
     return {
@@ -128,10 +127,16 @@ export const localConfig: LocalConfig = (() => {
     return {
       SERVICE_WORKER: '',
       STATIC_STYLE: css`
-        nav .web-navigation__native-upsell,
-        .web-navigation .upsell-banner,
+        /* preview tag */
         .web-chrome-playback-lcd__platter--preview,
-        footer.dt-footer {
+        /* logo */
+        .web-navigation__logo-container,
+        /* nav native links */
+        nav .web-navigation__native-upsell,
+        /* page footer */
+        footer.dt-footer,
+        /* footer banner */
+        cwc-music-upsell-banner-web {
           display: none;
         }
         .${LYRICS_CLASSNAME} svg path {
@@ -141,12 +146,12 @@ export const localConfig: LocalConfig = (() => {
           background: transparent !important;
         }
         .${LYRICS_CLASSNAME} svg {
-          background: var(--labelSecondary);
+          background: var(--systemSecondary);
           -webkit-mask: url(${microphoneIconUrl}) center / 65% no-repeat;
           mask: url(${microphoneIconUrl}) center / 65% no-repeat;
         }
         .${LYRICS_CLASSNAME}.${LYRICS_ACTIVE_CLASSNAME} svg {
-          background: var(--primaryColor);
+          background: var(--playerPlatterButtonBGFill);
         }
       `,
       NO_PIP_STYLE: '',
@@ -178,8 +183,8 @@ export const localConfig: LocalConfig = (() => {
     return {
       SERVICE_WORKER: 'https://open.spotify.com/service-worker.js',
       STATIC_STYLE: css`
-        /* not logged in */
-        [data-testid='cookie-notice'],
+        /* not logged in, cookie banner */
+        #onetrust-consent-sdk,
         /* webpage: download link */
         .Root__nav-bar div a[href*=download],
         /* webpage: logo */

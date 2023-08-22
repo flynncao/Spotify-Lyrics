@@ -40,5 +40,7 @@ module.exports = {
         argsIgnorePattern: '^_',
       },
     ],
+    'brace-style': 'off',
+    '@typescript-eslint/brace-style': 'error',
   },
 };
