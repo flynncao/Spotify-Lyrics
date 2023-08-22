@@ -1,11 +1,10 @@
 /**
  * The default is Spotify configuration
  */
-import { isProd, Platform } from '../common/consts';
+import { Platform } from '../common/consts';
 
 import config from './config.json';
-import { request } from './request';
-import { css, svg, getSVGDataUrl } from './utils';
+import { css, getSVGDataUrl, svg } from './utils';
 
 // Identify platform
 // Identify the platform, the platform should be the same as in config.json
@@ -19,14 +18,15 @@ export const currentPlatform: Platform = (() => {
 })();
 
 async function getConfig() {
-  let result = config;
-  if (isProd) {
-    try {
-      result = await request(
-        `https://raw.githubusercontent.com/mantou132/Spotify-Lyrics/master/src/page/config.json?t=${Date.now()}`,
-      );
-    } catch {}
-  }
+  const result = config;
+  // https://github.com/mantou132/Spotify-Lyrics/issues/107
+  // if (isProd) {
+  //   try {
+  //     result = await request(
+  //       `https://raw.githubusercontent.com/mantou132/Spotify-Lyrics/master/src/page/config.json?t=${Date.now()}`,
+  //     );
+  //   } catch {}
+  // }
   return currentPlatform === 'SPOTIFY' ? result : Object.assign(result, result[currentPlatform]);
 }
 
